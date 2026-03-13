@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Physio Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Header ──────────────────────────────────────────────────── -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="header-title">
+        <span class="header-icon">🏥</span>
+        <h1>Physio Tracker</h1>
+      </div>
+      <p id="today-date" class="header-date"></p>
+    </div>
+  </header>
+
+  <!-- ── Notification Banner ─────────────────────────────────────── -->
+  <div id="banner" class="banner hidden" role="alert" aria-live="polite">
+    <span id="banner-text"></span>
+    <button id="banner-close" class="banner-close" aria-label="Dismiss">✕</button>
+  </div>
+
+  <!-- ── Main ────────────────────────────────────────────────────── -->
+  <main class="app-main">
+
+    <!-- Session Tabs -->
+    <section class="session-tabs-section" aria-label="Session navigation">
+      <div class="session-tabs" id="session-tabs">
+        <button class="session-tab active" data-session="1" id="tab-1">
+          <span class="tab-label">Session 1</span>
+          <span class="tab-sublabel">Morning</span>
+          <span class="tab-status" id="tab-status-1"></span>
+        </button>
+        <button class="session-tab" data-session="2" id="tab-2">
+          <span class="tab-label">Session 2</span>
+          <span class="tab-sublabel">Afternoon</span>
+          <span class="tab-status" id="tab-status-2"></span>
+        </button>
+        <button class="session-tab" data-session="3" id="tab-3">
+          <span class="tab-label">Session 3</span>
+          <span class="tab-sublabel">Evening</span>
+          <span class="tab-status" id="tab-status-3"></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Exercises -->
+    <section class="exercises-section">
+      <div id="exercises-loading" class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading exercises…</p>
+      </div>
+
+      <div id="exercises-error" class="error-state hidden">
+        <p>⚠ Could not load exercises. Check exercises.json.</p>
+      </div>
+
+      <div id="exercise-cards" class="exercise-list" aria-label="Exercise cards">
+        <!-- Populated by app.js -->
+      </div>
+    </section>
+
+    <!-- Session Footer -->
+    <section class="session-footer">
+      <p id="status-message" class="status-message" aria-live="polite">Ready to record</p>
+
+      <button
+        id="end-session-btn"
+        class="btn btn-primary btn-end-session"
+        disabled
+        aria-disabled="true"
+      >
+        End Session
+      </button>
+    </section>
+
+    <!-- Session Summary (shown after completion) -->
+    <section id="session-summary" class="session-summary hidden" aria-label="Session summary">
+      <h2 class="summary-heading">Session <span id="summary-session-num"></span> Summary</h2>
+      <div id="summary-content" class="summary-content"></div>
+    </section>
+
+    <!-- Notion Retry (shown on failure) -->
+    <div id="notion-retry-wrap" class="hidden">
+      <button id="notion-retry-btn" class="btn btn-warning">
+        ↻ Retry Notion Push
+      </button>
+    </div>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

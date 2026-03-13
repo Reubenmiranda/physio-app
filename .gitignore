@@ -1,0 +1,31 @@
+# Environment — never commit secrets
+.env
+
+# Node modules
+node_modules/
+
+# Audio uploads (temporary processing files)
+uploads/*.webm
+uploads/*.wav
+uploads/*.mp3
+uploads/*.m4a
+uploads/*.ogg
+uploads/*.json
+
+# Keep uploads directory in git
+!uploads/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo

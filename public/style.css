@@ -1,0 +1,570 @@
+/* ── Reset & Variables ────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-bg:           #f8f9fa;
+  --color-surface:      #ffffff;
+  --color-border:       #e2e8f0;
+  --color-border-light: #f1f5f9;
+
+  --color-text:         #1a202c;
+  --color-text-muted:   #64748b;
+  --color-text-light:   #94a3b8;
+
+  --color-green:        #22c55e;
+  --color-green-light:  #f0fdf4;
+  --color-green-border: #bbf7d0;
+
+  --color-red:          #ef4444;
+  --color-red-light:    #fef2f2;
+  --color-red-border:   #fecaca;
+  --color-red-pulse:    rgba(239, 68, 68, 0.3);
+
+  --color-blue:         #3b82f6;
+  --color-blue-light:   #eff6ff;
+
+  --color-amber:        #f59e0b;
+  --color-amber-light:  #fffbeb;
+
+  --color-primary:      #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-text: #ffffff;
+
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  14px;
+  --radius-xl:  20px;
+
+  --shadow-sm:  0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:  0 4px 6px -1px rgba(0,0,0,.07), 0 2px 4px -1px rgba(0,0,0,.04);
+  --shadow-lg:  0 10px 15px -3px rgba(0,0,0,.07), 0 4px 6px -2px rgba(0,0,0,.04);
+
+  --transition: 150ms ease;
+
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ── Header ───────────────────────────────────────────────────────────────── */
+.app-header {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: 16px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+
+.header-inner {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.header-title h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.header-date {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* ── Banner ───────────────────────────────────────────────────────────────── */
+.banner {
+  max-width: 680px;
+  margin: 12px auto 0;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+  animation: slideDown 200ms ease;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.banner-success {
+  background: var(--color-green-light);
+  border-color: var(--color-green-border);
+  color: #15803d;
+}
+
+.banner-error {
+  background: var(--color-red-light);
+  border-color: var(--color-red-border);
+  color: #b91c1c;
+}
+
+.banner-info {
+  background: var(--color-blue-light);
+  border-color: #bfdbfe;
+  color: #1d4ed8;
+}
+
+.banner-warning {
+  background: var(--color-amber-light);
+  border-color: #fde68a;
+  color: #92400e;
+}
+
+.banner-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: inherit;
+  opacity: 0.6;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  transition: opacity var(--transition);
+  flex-shrink: 0;
+}
+
+.banner-close:hover { opacity: 1; }
+
+/* ── Main ─────────────────────────────────────────────────────────────────── */
+.app-main {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Session Tabs ─────────────────────────────────────────────────────────── */
+.session-tabs-section {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  padding: 6px;
+  box-shadow: var(--shadow-sm);
+}
+
+.session-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 4px;
+}
+
+.session-tab {
+  background: none;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 10px 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transition: background var(--transition), color var(--transition);
+  position: relative;
+  min-height: 60px;
+  justify-content: center;
+}
+
+.session-tab:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.session-tab:not(:disabled):hover {
+  background: var(--color-bg);
+}
+
+.session-tab.active {
+  background: var(--color-primary);
+}
+
+.session-tab.completed {
+  background: var(--color-green-light);
+}
+
+.tab-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.session-tab.active .tab-label {
+  color: #ffffff;
+}
+
+.session-tab.completed .tab-label {
+  color: #15803d;
+}
+
+.tab-sublabel {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.session-tab.active .tab-sublabel {
+  color: rgba(255,255,255,0.8);
+}
+
+.session-tab.completed .tab-sublabel {
+  color: #16a34a;
+}
+
+.tab-status {
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.tab-status-done {
+  color: var(--color-green);
+}
+
+.session-tab.active .tab-status-active {
+  color: rgba(255,255,255,0.9);
+}
+
+.tab-status-active {
+  color: var(--color-primary);
+  animation: pulse-dot 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* ── Loading / Error States ───────────────────────────────────────────────── */
+.loading-state,
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 48px 24px;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 700ms linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Exercise Cards ───────────────────────────────────────────────────────── */
+.exercise-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exercise-card {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.exercise-card.card-recording {
+  border-color: var(--color-red);
+  box-shadow: 0 0 0 3px var(--color-red-pulse), var(--shadow-sm);
+  animation: pulse-border 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-border {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(239,68,68,.3), var(--shadow-sm); }
+  50%       { box-shadow: 0 0 0 6px rgba(239,68,68,.1), var(--shadow-sm); }
+}
+
+.exercise-card.card-recorded {
+  border-color: var(--color-green-border);
+  background: var(--color-green-light);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.card-badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.badge-done {
+  color: #16a34a;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.recorder-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font);
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition), opacity var(--transition);
+  padding: 10px 20px;
+  line-height: 1.2;
+  white-space: nowrap;
+  min-height: 44px;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn:not(:disabled):active {
+  transform: scale(0.97);
+}
+
+/* Record */
+.btn-record {
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+.btn-record:not(:disabled):hover {
+  background: var(--color-primary-dark);
+}
+
+/* Stop */
+.btn-stop {
+  background: var(--color-red);
+  color: #ffffff;
+}
+
+.btn-stop:not(:disabled):hover {
+  background: #dc2626;
+}
+
+/* Re-record */
+.btn-rerecord {
+  background: #f1f5f9;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+
+.btn-rerecord:not(:disabled):hover {
+  background: #e2e8f0;
+  color: var(--color-text);
+}
+
+/* Primary (End Session) */
+.btn-primary {
+  background: var(--color-primary);
+  color: #ffffff;
+  font-size: 1rem;
+  padding: 14px 28px;
+  min-height: 52px;
+  border-radius: var(--radius-lg);
+  width: 100%;
+  letter-spacing: 0.01em;
+}
+
+.btn-primary:not(:disabled):hover {
+  background: var(--color-primary-dark);
+}
+
+/* Warning */
+.btn-warning {
+  background: var(--color-amber-light);
+  color: #92400e;
+  border: 1px solid #fde68a;
+  padding: 10px 20px;
+}
+
+.btn-warning:not(:disabled):hover {
+  background: #fef3c7;
+}
+
+/* ── Timer & REC indicator ────────────────────────────────────────────────── */
+.timer {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-red);
+  font-variant-numeric: tabular-nums;
+  min-width: 40px;
+}
+
+.rec-indicator {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-red);
+  animation: pulse-dot 1s ease-in-out infinite;
+  letter-spacing: 0.05em;
+}
+
+/* ── Session Footer ───────────────────────────────────────────────────────── */
+.session-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.status-message {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  text-align: center;
+  min-height: 20px;
+}
+
+.btn-end-session {
+  max-width: 360px;
+}
+
+/* ── Session Summary ──────────────────────────────────────────────────────── */
+.session-summary {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-green-border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.summary-heading {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #15803d;
+  margin-bottom: 14px;
+}
+
+.summary-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.summary-line {
+  font-size: 0.875rem;
+  color: var(--color-text);
+  line-height: 1.6;
+  padding: 6px 10px;
+  background: var(--color-green-light);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--color-green);
+}
+
+/* ── Notion Retry ─────────────────────────────────────────────────────────── */
+#notion-retry-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+/* ── Responsive tweaks ────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .session-tab {
+    padding: 8px 4px;
+    min-height: 54px;
+  }
+
+  .tab-label {
+    font-size: 0.8rem;
+  }
+
+  .tab-sublabel {
+    font-size: 0.65rem;
+  }
+
+  .exercise-card {
+    padding: 14px;
+  }
+
+  .card-title {
+    font-size: 0.95rem;
+  }
+
+  .btn-primary {
+    font-size: 0.95rem;
+  }
+}
