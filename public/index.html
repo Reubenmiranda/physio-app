@@ -8,7 +8,9 @@
 </head>
 <body>
 
-  <!-- ── Header ──────────────────────────────────────────────────── -->
+  <!-- ── Header ──────────────────────────────────────────────────────────────
+       Sticky bar at the top showing the app name and today's date.
+       The date is injected by app.js on load (id="today-date"). -->
   <header class="app-header">
     <div class="header-inner">
       <div class="header-title">
@@ -19,21 +21,29 @@
     </div>
   </header>
 
-  <!-- ── Notification Banner ─────────────────────────────────────── -->
+  <!-- ── Notification Banner ─────────────────────────────────────────────────
+       A single reusable banner that shows success / error / info / warning
+       messages. Hidden by default. app.js calls showBanner() to display it
+       and hideBanner() to dismiss it. The ✕ button also dismisses it.
+       role="alert" + aria-live="polite" announces it to screen readers. -->
   <div id="banner" class="banner hidden" role="alert" aria-live="polite">
     <span id="banner-text"></span>
     <button id="banner-close" class="banner-close" aria-label="Dismiss">✕</button>
   </div>
 
-  <!-- ── Main ────────────────────────────────────────────────────── -->
+  <!-- ── Main Content ─────────────────────────────────────────────────────── -->
   <main class="app-main">
 
-    <!-- Session Tabs -->
+    <!-- Session Tabs ──────────────────────────────────────────────────────────
+         Three tabs (Morning / Afternoon / Evening). app.js manages their
+         active/completed/disabled state. Clicking a tab calls switchSession().
+         data-session attribute tells the click handler which session was clicked. -->
     <section class="session-tabs-section" aria-label="Session navigation">
       <div class="session-tabs" id="session-tabs">
         <button class="session-tab active" data-session="1" id="tab-1">
           <span class="tab-label">Session 1</span>
           <span class="tab-sublabel">Morning</span>
+          <!-- Status indicator: empty / pulsing dot (active) / ✓ (done) -->
           <span class="tab-status" id="tab-status-1"></span>
         </button>
         <button class="session-tab" data-session="2" id="tab-2">
@@ -49,24 +59,34 @@
       </div>
     </section>
 
-    <!-- Exercises -->
+    <!-- Exercise Cards ─────────────────────────────────────────────────────────
+         Container for the dynamically-generated exercise cards.
+         While exercises are loading from /api/exercises, a spinner is shown.
+         On failure, an error message is shown instead.
+         Once loaded, app.js injects one <article class="exercise-card"> per exercise. -->
     <section class="exercises-section">
+      <!-- Spinner shown during the initial /api/exercises fetch -->
       <div id="exercises-loading" class="loading-state">
         <div class="spinner"></div>
         <p>Loading exercises…</p>
       </div>
 
+      <!-- Error state shown if /api/exercises fails and no local fallback exists -->
       <div id="exercises-error" class="error-state hidden">
         <p>⚠ Could not load exercises. Check exercises.json.</p>
       </div>
 
+      <!-- Cards are injected here by renderExerciseCards() in app.js -->
       <div id="exercise-cards" class="exercise-list" aria-label="Exercise cards">
-        <!-- Populated by app.js -->
       </div>
     </section>
 
-    <!-- Session Footer -->
+    <!-- Session Footer ─────────────────────────────────────────────────────────
+         Status line + the main "End Session" button.
+         The button stays disabled until every exercise has a recording.
+         Pressing it kicks off: transcribe → summarise → (Session 3) push to Notion. -->
     <section class="session-footer">
+      <!-- Live status updates (e.g. "Transcribing 2 of 5…") -->
       <p id="status-message" class="status-message" aria-live="polite">Ready to record</p>
 
       <button
@@ -79,13 +99,19 @@
       </button>
     </section>
 
-    <!-- Session Summary (shown after completion) -->
+    <!-- Session Summary ────────────────────────────────────────────────────────
+         Shown below the cards after a session completes.
+         Contains the Ollama-generated clinical summary, one line per exercise.
+         Hidden until showSessionSummary() is called by app.js. -->
     <section id="session-summary" class="session-summary hidden" aria-label="Session summary">
       <h2 class="summary-heading">Session <span id="summary-session-num"></span> Summary</h2>
+      <!-- Each line of the Ollama summary is injected here as a <p class="summary-line"> -->
       <div id="summary-content" class="summary-content"></div>
     </section>
 
-    <!-- Notion Retry (shown on failure) -->
+    <!-- Notion Retry ───────────────────────────────────────────────────────────
+         Shown only when Session 3 is complete but the Notion push failed.
+         Clicking it calls pushToNotion() again without re-processing transcripts. -->
     <div id="notion-retry-wrap" class="hidden">
       <button id="notion-retry-btn" class="btn btn-warning">
         ↻ Retry Notion Push
@@ -94,6 +120,8 @@
 
   </main>
 
+  <!-- app.js runs after the DOM is parsed (placed at end of body).
+       DOMContentLoaded inside app.js calls init() to start everything. -->
   <script src="app.js"></script>
 </body>
 </html>
